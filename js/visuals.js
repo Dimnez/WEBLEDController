@@ -6,10 +6,11 @@ class AudioVisuals
 		this.analyser = undefined;
 		this.source = undefined;
 		this.data_needed = undefined;
+		this.handler = undefined;
 		this.audiodata_average = [];
 	}
 
-  init(audio_object,how_much_data)
+  init(audio_object,how_much_data,handler)
 	{
 		this.data_needed = how_much_data;
 		this.context = new AudioContext();
@@ -18,6 +19,7 @@ class AudioVisuals
 		this.source.connect(this.analyser);
 		this.source.fftSize = this.data_needed;
 		this.analyser.connect(this.context.destination);
+		this.handler = handler;
 		requestAnimationFrame(this.visualize);
 	}
 
@@ -39,25 +41,9 @@ class AudioVisuals
 		Visualizer.analyser.getByteFrequencyData(data);
 		Visualizer.averageTable(data,Visualizer.data_needed);
 
-
 		if(Visualizer.audiodata_average.length > 0)
-		{
-		var index = 0;
+		Visualizer.handler(Visualizer.audiodata_average);
 
-		hardwarecomponent.forEach(function (item)
-		{
-		item.change(
-			rgbToHex(
-				Visualizer.audiodata_average[index],
-				Visualizer.audiodata_average[index+1],
-				Visualizer.audiodata_average[index+2]),
-				(255/Visualizer.audiodata_average[index+3])*100);
-		index++;
-		});
-		}
 		requestAnimationFrame(Visualizer.visualize);
 	}
 }
-
-var Visualizer = new AudioVisuals();
-Visualizer.init("audio",hardwarecomponent.length*5);
