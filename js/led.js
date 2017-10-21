@@ -24,13 +24,9 @@ class led
   }
 }
 
-
-
-
 //led-Objekte
 //Können später mit IP-Adresse versehen werden
 var hardwarecomponent = [];
-
 
 for(var n = 0;n<number_of_leds;n++)
 {
