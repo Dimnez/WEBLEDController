@@ -4,7 +4,7 @@
 
   //Video 50x50 (Skalierung HTML5 matcht die Farben direkt zusammen)
   var cw = Math.floor(50);
-  var ch = Math.floor(50);
+  var ch = Math.floor(hardwarecomponent.length*10);
   canvas.width = cw;
   canvas.height = ch;
 
@@ -12,8 +12,6 @@
   v.addEventListener('play', function(){
       draw(this,context,cw,ch);
   },false);
-
-
 
 function draw(v,c,w,h) {
     if(v.paused || v.ended) return false;
@@ -24,10 +22,9 @@ function draw(v,c,w,h) {
     hardwarecomponent.forEach(function (item)
     {
       var data = context.getImageData(25, num*10, 1, 1).data;
-      var color = data[1];
 
       //LED-Anpassen
-      changeLed(num,rgbToHex(data[0],data[1],data[2]),1)
+      item.change(rgbToHex(data[0],data[1],data[2]),(255/(data[0]+data[1]+data[2]/765))*1)
       num++;
     });
 

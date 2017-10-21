@@ -42,22 +42,26 @@ function init() {
    source.connect(analyser);
    source.fftSize = hardwarecomponent.length*8;
    analyser.connect(context.destination);
-   requestAnimationFrame(logaudio);
+   requestAnimationFrame(audiochange);
 }
 
 
 //Wird bei jedem Frame ausgeführt
 //Später macht es Sinn heir auf das Gerät zu warten bevor neue Werte gesendet werden
-function logaudio()
+function audiochange()
 {
   let bins = analyser.frequencyBinCount;
 	let data = new Uint8Array(bins);
 	analyser.getByteFrequencyData(data);
   updatebinTable(data);
 
-  for(var i =0;i<(hardwarecomponent.length*4);i+=4)
+	var index = 0;
+
+  hardwarecomponent.forEach(function (item)
   {
-  changeLed(i/4,rgbToHex(binTable[i],binTable[i+1],binTable[i+2]),(255/binTable[i+3])*100);
- }
-  requestAnimationFrame(logaudio);
+  item.change(rgbToHex(binTable[index],binTable[index+1],binTable[index+2]),(255/binTable[index+3])*100);
+	index++;
+	});
+
+  requestAnimationFrame(audiochange);
 }

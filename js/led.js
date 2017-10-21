@@ -1,3 +1,5 @@
+var number_of_leds = 10;
+
 class led
 {
   constructor(element,ip)
@@ -7,28 +9,31 @@ class led
     this.currentColor = "#000000";
     this.brightness = 0;
   }
+
+  //Funktion um die LED anzupassen
+  //Wird später durch Post auf die IP des Geräts angepasst
+  change(hex,brightness)
+  {
+    this.hex = hex;
+    this.brightness = brightness;
+
+    //Hardware-simulation
+    this.element.css("background-color",hex);
+    this.element.css("opacity",brightness);
+    this.element.css("box-shadow","0px 0px 90px 10px"+hex);
+  }
 }
+
+
 
 
 //led-Objekte
 //Können später mit IP-Adresse versehen werden
-var hardwarecomponent = [
-  new led($("#led-1"),"0.0.0.0"),
-  new led($("#led-2"),"0.0.0.0"),
-  new led($("#led-3"),"0.0.0.0"),
-  new led($("#led-4"),"0.0.0.0"),
-  new led($("#led-5"),"0.0.0.0")];
+var hardwarecomponent = [];
 
-//Funktion um die LED anzupassen
-//Wird später durch Post auf die IP des Geräts angepasst
-//TODO: Funktion direkt in die LED-Klasse packen
-function changeLed(num,hex,brightness)
+
+for(var n = 0;n<number_of_leds;n++)
 {
-hardwarecomponent[num].hex = hex;
-hardwarecomponent[num].brightness = brightness;
-
-//Hardware-simulation
-hardwarecomponent[num].element.css("background-color",hex);
-hardwarecomponent[num].element.css("opacity",brightness);
-hardwarecomponent[num].element.css("box-shadow","0px 0px 90px 10px"+hex);
+    $(".hardware").append("<div class = 'led' id = 'led-"+n+"'></div>");
+    hardwarecomponent.push(new led($("#led-"+n),"0.0.0.0"));
 }

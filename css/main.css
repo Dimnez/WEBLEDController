@@ -1,8 +1,8 @@
 .led
 {
-    width:100px;
-    height:100px;
-    margin:50px;
+    width:30px;
+    height:30px;
+    margin:30px;
     background: white;
     opacity: 0.1;
     -webkit-filter: blur(5px);
@@ -16,7 +16,7 @@
 
 .license
 {
-color:white;  
+color:white;
 }
 
 .demo-video
