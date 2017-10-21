@@ -1,0 +1,46 @@
+.led
+{
+    width:100px;
+    height:100px;
+    margin:50px;
+    background: white;
+    opacity: 0.1;
+    -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(3px);
+  box-shadow: 0px 0px 150px none;
+  border:1px solid black;
+}
+
+.license
+{
+color:white;  
+}
+
+.demo-video
+{
+  position:absolute;;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  opacity: 0.05;
+}
+
+.hardware
+{
+  width:100px;
+  height:600px;
+  position:absolute;
+  left:50%;
+  top:50%;
+  margin-top:-300px;
+  margin-left:-75px;
+}
+
+body
+{
+  background:black;
+}
